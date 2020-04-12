@@ -127,6 +127,12 @@ option {
 	font-family: 'roboto', sans-serif;
 }
 
+.hidden-label{
+	display: none;
+}
+.hidden-input{
+	display: none;
+}
 /* ================================= 
   Page Styles
 ==================================== */

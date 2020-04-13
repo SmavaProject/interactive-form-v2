@@ -8,6 +8,11 @@ const desing = document.getElementById("design");
 
 const activities = document.querySelector(".activities");
 
+const payment = document.getElementById("payment");
+
+/***
+ *
+ */
 nameField.focus();
 
 title.addEventListener('change', (event) => {
@@ -57,7 +62,7 @@ let costs = 0;
 const totalCosts = document.createElement("div");
 activities.appendChild(totalCosts);
 /***
- *event listener for Activities: calculates total costs of the conference
+ * Event listener for Activities: calculates total costs of the conference
  */
 activities.addEventListener('change', (event) =>{
     const checked = event.target.checked;
@@ -92,5 +97,32 @@ activities.addEventListener('change', (event) =>{
     }
 });
 
+/***
+ * Event listener for payment options
+ */
+payment.addEventListener('change', (event) =>{
+    const card = document.querySelectorAll("#payment option")[1];
+    const paypal = document.querySelectorAll("#payment option")[2];
+    const bitcoin = document.querySelectorAll("#payment option")[3];
 
+    const cardDiv = document.getElementById("credit-card");
+    const paypalDiv = document.getElementById("paypal");
+    const bitcoinDiv = document.getElementById("bitcoin");
+
+    const selected = event.target.value;
+
+    if (selected == card.value){
+        cardDiv.style.display = 'block';
+        paypalDiv.style.display = 'none';
+        bitcoinDiv.style.display = 'none';
+    } else if (selected == paypal.value){
+        cardDiv.style.display = 'none';
+        paypalDiv.style.display = 'block';
+        bitcoinDiv.style.display = 'none';
+    }else if(selected == bitcoin.value){
+        cardDiv.style.display = 'none';
+        paypalDiv.style.display = 'none';
+        bitcoinDiv.style.display = 'block';
+    }
+});
 

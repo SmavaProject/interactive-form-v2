@@ -1,4 +1,5 @@
 const nameField = document.getElementById("name");
+const email = document.getElementById("mail");
 const title = document.getElementById("title");
 
 const hiddenLabel = document.querySelector(".hidden-label");
@@ -9,6 +10,10 @@ const desing = document.getElementById("design");
 const activities = document.querySelector(".activities");
 
 const payment = document.getElementById("payment");
+
+const card = document.getElementById("cc-num");
+const zip = document.getElementById("zip");
+const cvv = document.getElementById("cvv");
 
 /***
  *
@@ -64,22 +69,25 @@ activities.appendChild(totalCosts);
 /***
  * Event listener for Activities: calculates total costs of the conference
  */
+
+const activitiesInp = document.querySelectorAll(".activities input");
+
 activities.addEventListener('change', (event) =>{
     const checked = event.target.checked;
-    const inputs = document.querySelectorAll(".activities input");
+    const activitiesInp = document.querySelectorAll(".activities input");
     const timeOfActivity = event.target.getAttribute('data-day-and-time');
     const costOfActivity = parseInt(event.target.getAttribute('data-cost'));
 
-    for (let i = 0; i< inputs.length; i++){
-        const time = inputs[i].getAttribute('data-day-and-time');
+    for (let i = 0; i< activitiesInp.length; i++){
+        const time = activitiesInp[i].getAttribute('data-day-and-time');
         console.log("time = " + time + ' timeOfActivity = ' + timeOfActivity);
-        if (time == timeOfActivity && event.target != inputs[i]){
+        if (time == timeOfActivity && event.target != activitiesInp[i]){
             //!!!
             if(checked){
-                inputs[i].disabled = true;
+                activitiesInp[i].disabled = true;
                 //inputs[i].style.color = "#808080";
             }else {
-                inputs[i].disabled = false;
+                activitiesInp[i].disabled = false;
             }
         }
     }
@@ -126,3 +134,97 @@ payment.addEventListener('change', (event) =>{
     }
 });
 
+
+/***
+ * validates username field
+ * @param username
+ * @return {boolean}
+ */
+function isValidUsername(username){
+    return /^(?!\s*$).+/.test(username);
+}
+
+/***
+ *
+ * @param email
+ * @return {boolean}
+ */
+function isValidEmail(email){
+    return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email);
+}
+
+/***
+ *
+ * @param card
+ * @return {boolean}
+ */
+function isCardValid(card){
+    return /^\d{13,16}$/.test(card);
+}
+
+/***
+ *
+ * @param zip
+ * @return {boolean}
+ */
+function isZipValid(zip){
+    return /^\d{5}$/.test(zip);
+}
+
+/***
+ *
+ * @param cvv
+ * @return {boolean}
+ */
+function isCvvValid(cvv){
+    return /^\d{3}$/.test(cvv);
+}
+
+/***
+ *
+ * @return {boolean}
+ */
+function isActivityChecked(){
+    for (let i = 0; i< activitiesInp.length; i++){
+        if (activitiesInp[i].checked){
+            return true;
+        }
+    }
+    return false;
+}
+
+
+/***
+ *
+ * @param validator
+ * @return {function(...[*]=)}
+ */
+function customEventListener(validator){
+    return event =>{
+        const text = event.target.value;
+        const valid = validator(text);
+        const showTip = text !== "" && !valid;
+        const tooltip = event.target;
+        showOrHideTip(showTip, tooltip);
+    };
+}
+
+/***
+ *
+ * @param show
+ * @param element
+ */
+function showOrHideTip(show, element) {
+    const text = element.previousElementSibling.textContent;
+    if (show){
+        element.style.borderColor = "red";
+    }else{
+        element.style.borderColor = "inherit";
+    }
+}
+
+nameField.addEventListener('input', customEventListener(isValidUsername));
+email.addEventListener('input', customEventListener(isValidEmail));
+card.addEventListener('input', customEventListener(isCardValid));
+zip.addEventListener('input', customEventListener(isZipValid));
+cvv.addEventListener('input', customEventListener(isCvvValid));

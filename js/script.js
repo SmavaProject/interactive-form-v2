@@ -2,9 +2,10 @@ const nameField = document.getElementById("name");
 const email = document.getElementById("mail");
 const title = document.getElementById("title");
 
-const hiddenLabel = document.querySelector(".hidden-label");
-const hiddenInput = document.querySelector(".hidden-input");
+//const hiddenLabel = document.querySelector(".hidden-label");
+//const hiddenInput = document.querySelector(".hidden-input");
 
+const otherTitle = document.querySelector(".other-title");
 const desing = document.getElementById("design");
 
 const activities = document.querySelector(".activities");
@@ -15,30 +16,42 @@ const card = document.getElementById("cc-num");
 const zip = document.getElementById("zip");
 const cvv = document.getElementById("cvv");
 
+const cardDiv = document.getElementById("credit-card");
+const paypalDiv = document.getElementById("paypal");
+const bitcoinDiv = document.getElementById("bitcoin");
+
 /***
- *
+ *Puts cursor on the first field
  */
 nameField.focus();
-
+/***
+ * Hide other-title input field
+ */
+otherTitle.style.display = "none";
+paypalDiv.style.display = "none";
+bitcoinDiv.style.display = "none";
+/***
+ * Event listener for job title
+ */
 title.addEventListener('change', (event) => {
 
     const selected = event.target.value; //e / event
     const other = document.querySelectorAll("#title option")[5].value;
     if (selected == other){
-        hiddenInput.style.display = "block";
-        hiddenLabel.style.display = "block";
+        otherTitle.style.display = "block";
     }else{
-        hiddenLabel.style.display = "none";
-        hiddenInput.style.display = "none";
+        otherTitle.style.display = "none";
     }
 
 });
 
 /***
- * event listener for ...
+ * Event listener for t-shirt design
  */
 desing.addEventListener('change', (event) =>{
     const selected = event.target.value;
+    //hide first option once user clicks the dropdown
+    document.querySelectorAll("#design option")[0].style.display = 'none';
     const jspuns = document.querySelectorAll("#design option")[1];
     const heartjs = document.querySelectorAll("#design option")[2];
 
@@ -108,14 +121,11 @@ activities.addEventListener('change', (event) =>{
 /***
  * Event listener for payment options
  */
+
 payment.addEventListener('change', (event) =>{
     const card = document.querySelectorAll("#payment option")[1];
     const paypal = document.querySelectorAll("#payment option")[2];
     const bitcoin = document.querySelectorAll("#payment option")[3];
-
-    const cardDiv = document.getElementById("credit-card");
-    const paypalDiv = document.getElementById("paypal");
-    const bitcoinDiv = document.getElementById("bitcoin");
 
     const selected = event.target.value;
 
@@ -228,3 +238,9 @@ email.addEventListener('input', customEventListener(isValidEmail));
 card.addEventListener('input', customEventListener(isCardValid));
 zip.addEventListener('input', customEventListener(isZipValid));
 cvv.addEventListener('input', customEventListener(isCvvValid));
+
+/***
+ * 2) hide other payment methods
+ * 3) enable validation upon clicking submit
+ * 4) hide t-shirt designs
+ */

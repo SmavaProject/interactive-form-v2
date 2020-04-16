@@ -20,6 +20,8 @@ const cardDiv = document.getElementById("credit-card");
 const paypalDiv = document.getElementById("paypal");
 const bitcoinDiv = document.getElementById("bitcoin");
 
+const form = document.querySelector("form");
+
 /***
  *Puts cursor on the first field
  */
@@ -144,6 +146,9 @@ payment.addEventListener('change', (event) =>{
     }
 });
 
+/***
+ * ***************  Validation section  *******************************
+ */
 
 /***
  * validates username field
@@ -240,7 +245,35 @@ zip.addEventListener('input', customEventListener(isZipValid));
 cvv.addEventListener('input', customEventListener(isCvvValid));
 
 /***
- * 2) hide other payment methods
- * 3) enable validation upon clicking submit
- * 4) hide t-shirt designs
+ * Event listener for the Regiser button
  */
+form.addEventListener('submit', (event )=>{
+    if (!isValidUsername(nameField.value)){
+        nameField.style.borderColor = "red";
+        event.preventDefault();
+    }
+    if (!isValidEmail(email.value)){
+        email.style.borderColor = "red";
+        event.preventDefault();
+    }
+    if (!isActivityChecked()){
+        alert ("At least one Activity must be selected");
+        for (let i = 0; i< activitiesInp.length; i++) {
+            activitiesInp[i].style.borderColor = "red";
+            //event.preventDefault();
+        }
+    }
+    if (!isCardValid(card.value) && payment.value == "credit card"){
+        card.style.borderColor = "red";
+        event.preventDefault();
+    }
+    if(!isZipValid(zip.value) && payment.value == "credit card"){
+        zip.style.borderColor = "red";
+        event.preventDefault();
+    }
+    if(!isCvvValid(cvv.value) && payment.value == "credit card"){
+        //alert('alall');
+        cvv.style.borderColor = "red";
+        event.preventDefault();
+    }
+})

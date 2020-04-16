@@ -2,10 +2,8 @@ const nameField = document.getElementById("name");
 const email = document.getElementById("mail");
 const title = document.getElementById("title");
 
-//const hiddenLabel = document.querySelector(".hidden-label");
-//const hiddenInput = document.querySelector(".hidden-input");
-
 const otherTitle = document.querySelector(".other-title");
+const tshirtColors = document.querySelectorAll("#color option");
 const desing = document.getElementById("design");
 
 const activities = document.querySelector(".activities");
@@ -21,7 +19,9 @@ const paypalDiv = document.getElementById("paypal");
 const bitcoinDiv = document.getElementById("bitcoin");
 
 const form = document.querySelector("form");
-
+/***
+ * ********************************** Hide fields, put cursor on page load ******************************
+ */
 /***
  *Puts cursor on the first field
  */
@@ -32,6 +32,18 @@ nameField.focus();
 otherTitle.style.display = "none";
 paypalDiv.style.display = "none";
 bitcoinDiv.style.display = "none";
+
+function hideColors(){
+    for (let i = 0; i< tshirtColors.length; i++){
+        tshirtColors[i].style.display = 'none';
+    }
+}
+
+hideColors();
+/***
+ * ****************************************** Event listeners ****************************************
+ */
+
 /***
  * Event listener for job title
  */
@@ -57,7 +69,6 @@ desing.addEventListener('change', (event) =>{
     const jspuns = document.querySelectorAll("#design option")[1];
     const heartjs = document.querySelectorAll("#design option")[2];
 
-    const tshirtColors = document.querySelectorAll("#color option");
     console.log("length " + tshirtColors.length);
     for (let i = 0; i < tshirtColors.length; i++) {
         tshirtColors[i].style.display = 'none';
@@ -147,7 +158,7 @@ payment.addEventListener('change', (event) =>{
 });
 
 /***
- * ***************  Validation section  *******************************
+ * **************************************  Validation section  *******************************
  */
 
 /***
@@ -238,6 +249,9 @@ function showOrHideTip(show, element) {
     }
 }
 
+/***
+ *  Event listener to validate the inputs
+ */
 nameField.addEventListener('input', customEventListener(isValidUsername));
 email.addEventListener('input', customEventListener(isValidEmail));
 card.addEventListener('input', customEventListener(isCardValid));
@@ -245,7 +259,7 @@ zip.addEventListener('input', customEventListener(isZipValid));
 cvv.addEventListener('input', customEventListener(isCvvValid));
 
 /***
- * Event listener for the Regiser button
+ * Event listener for the Regiser button, prevents submitting invalid input
  */
 form.addEventListener('submit', (event )=>{
     if (!isValidUsername(nameField.value)){
@@ -258,10 +272,6 @@ form.addEventListener('submit', (event )=>{
     }
     if (!isActivityChecked()){
         alert ("At least one Activity must be selected");
-        for (let i = 0; i< activitiesInp.length; i++) {
-            activitiesInp[i].style.borderColor = "red";
-            //event.preventDefault();
-        }
     }
     if (!isCardValid(card.value) && payment.value == "credit card"){
         card.style.borderColor = "red";
@@ -272,7 +282,6 @@ form.addEventListener('submit', (event )=>{
         event.preventDefault();
     }
     if(!isCvvValid(cvv.value) && payment.value == "credit card"){
-        //alert('alall');
         cvv.style.borderColor = "red";
         event.preventDefault();
     }

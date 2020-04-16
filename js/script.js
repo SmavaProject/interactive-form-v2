@@ -241,7 +241,6 @@ function customEventListener(validator){
  * @param element
  */
 function showOrHideTip(show, element) {
-    const text = element.previousElementSibling.textContent;
     if (show){
         element.style.borderColor = "red";
     }else{

@@ -7,6 +7,8 @@ const tshirtColors = document.querySelectorAll("#color option");
 const desing = document.getElementById("design");
 
 const activities = document.querySelector(".activities");
+const activitiesLabel = document.querySelectorAll(".activities label");
+const activitiesInp = document.querySelectorAll(".activities input");
 
 const payment = document.getElementById("payment");
 
@@ -32,6 +34,8 @@ nameField.focus();
 otherTitle.style.display = "none";
 paypalDiv.style.display = "none";
 bitcoinDiv.style.display = "none";
+
+document.querySelectorAll("#payment option")[0].hidden = true;
 
 function hideColors(){
     for (let i = 0; i< tshirtColors.length; i++){
@@ -96,22 +100,22 @@ activities.appendChild(totalCosts);
  * Event listener for Activities: calculates total costs of the conference
  */
 
-const activitiesInp = document.querySelectorAll(".activities input");
-
 activities.addEventListener('change', (event) =>{
     const checked = event.target.checked;
-    const activitiesInp = document.querySelectorAll(".activities input");
     const timeOfActivity = event.target.getAttribute('data-day-and-time');
     const costOfActivity = parseInt(event.target.getAttribute('data-cost'));
 
     for (let i = 0; i< activitiesInp.length; i++){
+        //reset color from red to "inherit" when a user selects any activity (after alert)
+        activitiesLabel[i].style.color = "inherit";
+
         const time = activitiesInp[i].getAttribute('data-day-and-time');
         console.log("time = " + time + ' timeOfActivity = ' + timeOfActivity);
+
         if (time == timeOfActivity && event.target != activitiesInp[i]){
             //!!!
             if(checked){
                 activitiesInp[i].disabled = true;
-                //inputs[i].style.color = "#808080";
             }else {
                 activitiesInp[i].disabled = false;
             }
@@ -270,7 +274,11 @@ form.addEventListener('submit', (event )=>{
         event.preventDefault();
     }
     if (!isActivityChecked()){
-        alert ("At least one Activity must be selected");
+        alert ("At least one Activity must be selected!");
+        for (let i = 0; i< activitiesInp.length; i++){
+            activitiesLabel[i].style.color = "red";
+        }
+        event.preventDefault();
     }
     if (!isCardValid(card.value) && payment.value == "credit card"){
         card.style.borderColor = "red";

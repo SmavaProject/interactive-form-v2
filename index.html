@@ -34,8 +34,10 @@
           <option value="student">Student</option>
           <option value="other">Other</option>  
         </select>
-        <label class="hidden-label" for="your-job">Your Job Role</label>
-        <input class="hidden-input" type="text" id="your-job" name="your-job-role">
+        <div class="other-title">
+          <label class="label" for="your-job">Your Job Role</label>
+          <input class="input" type="text" id="your-job" name="your-job-role">
+        </div>
       </fieldset>
       
       <fieldset class="shirt">
@@ -65,12 +67,12 @@
             <label for="color">Color:</label>
             <select id="color">
               <option value="placeholder">Please select a T-shirt theme</option>
-              <option value="cornflowerblue" hidden>Cornflower Blue (JS Puns shirt only)</option>
-              <option value="darkslategrey" hidden>Dark Slate Grey (JS Puns shirt only)</option>
-              <option value="gold" hidden>Gold (JS Puns shirt only)</option>
-              <option value="tomato" hidden>Tomato (I &#9829; JS shirt only)</option>
-              <option value="steelblue" hidden>Steel Blue (I &#9829; JS shirt only)</option>
-              <option value="dimgrey" hidden>Dim Grey (I &#9829; JS shirt only)</option>
+              <option value="cornflowerblue" >Cornflower Blue (JS Puns shirt only)</option>
+              <option value="darkslategrey" >Dark Slate Grey (JS Puns shirt only)</option>
+              <option value="gold" >Gold (JS Puns shirt only)</option>
+              <option value="tomato" >Tomato (I &#9829; JS shirt only)</option>
+              <option value="steelblue" >Steel Blue (I &#9829; JS shirt only)</option>
+              <option value="dimgrey" >Dim Grey (I &#9829; JS shirt only)</option>
             </select>
           </div>
         </div>               
@@ -160,11 +162,11 @@
           </select> 	                  	         
         </div>
 
-        <div id="paypal" class="paypal" hidden>
+        <div id="paypal" class="paypal">
         	<p>If you selected the PayPal option we'll take you to Paypal's site to set up your billing information, when you click “Register” below.</p>
         </div> 
 
-        <div id="bitcoin" class="bitcoin" hidden>
+        <div id="bitcoin" class="bitcoin">
         	<p>If you selected the Bitcoin option we'll take you to the Coinbase site to set up your billing information. Due to the nature of exchanging Bitcoin, all Bitcoin transactions will be final.</p>
         </div>                  
 

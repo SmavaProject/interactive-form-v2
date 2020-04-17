@@ -275,7 +275,7 @@ form.addEventListener('submit', (event )=>{
     }
     if (!isActivityChecked()){
         alert ("At least one Activity must be selected!");
-        for (let i = 0; i< activitiesInp.length; i++){
+        for (let i = 0; i< activitiesLabel.length; i++){
             activitiesLabel[i].style.color = "red";
         }
         event.preventDefault();
